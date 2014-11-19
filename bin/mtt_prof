@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'profiles/cli'
+Profiles::CLI.start
