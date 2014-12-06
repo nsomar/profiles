@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Profiles::VERSION
   spec.authors       = ["Omar Abdelhafith"]
   spec.email         = ["omar.abdelhafith@mttnow.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{short summary}
+  spec.description   = %q{long suppary}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -25,4 +25,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "thor"
   spec.add_dependency "plist"
+  spec.add_dependency "CFPropertyList", '~> 2.2'
+  spec.add_dependency "nokogiri"
 end

@@ -5,7 +5,7 @@ require 'nokogiri'
 class Profiles::CLI < Thor
 
   option :no_team,  :type => :boolean, desc: "Remove 'iOSTeam Provisioning Profile' profiles"
-  desc "device", "search for a specific device"
+  desc "device UDID", "search for a specific device"
   def device(device)
 
     containing_device = Set.new
