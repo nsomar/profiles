@@ -2,42 +2,46 @@ require 'thor'
 require 'plist'
 require 'CFPropertyList'
 require 'nokogiri'
+require 'profiles'
+
 class Profiles::CLI < Thor
 
-  option :no_team,  :type => :boolean, desc: "Remove 'iOSTeam Provisioning Profile' profiles"
-  desc "device UDID", "search for a specific device"
-  def device(device)
-
-    containing_device = Set.new
-    computer_provisions.each do |file|
-      contains = open(file, :encoding => "UTF-8") { |f| f.read[device] }
-      next unless contains
-      containing_device << file
+  option :t, :aliases => ["--team"],  :type => :boolean, desc: "Include 'iOSTeam Provisioning Profile' profiles"
+  option :u, :aliases => ["--udid"], required: true, desc: "The UDID to search"
+  desc "local", "search for a specific device"
+  
+  def local
+    say "Parsing local provision profiles\n\n"
+    udid = options[:u]
+    
+    profiles = ProfilesUtils.search_local_provisions(udid, options[:t])
+    
+    if (profiles.count == 0)
+      say "No profile containing #{udid} UDID found", :red
+    else
+      say "Found #{profiles.count} profiles containing #{options[:u]}", :green
+      profiles.sort.each { |item| say item}
     end
+    
+  end
+  
+  option :p, :aliases => ["--path"], required: true, desc: "Path of the IPA"
+  option :u, :aliases => ["--udid"], required: true, desc: "The UDID to search"
+  desc "ipa", "search for a specific device"
 
-    provision_names = containing_device.map do |file|
-      profile_name(file)
+  def ipa
+    udid = options[:u]
+    reader = IpaReader.new(options[:p])
+    
+    reader.on_unzip { puts "Unzipping ipa file"}
+    
+    parser = reader.provision_parser
+        
+    if parser.provisioned_devices.include?(udid)
+        say "#{udid} UDID found", :green
+    else 
+        say "#{udid} UDID not found", :red
     end
-
-    say "Found #{provision_names.count} profiles containing #{device}:", :green
-
-    provision_names.reject! { |item| item[/iOSTeam Provisioning Profile.*/] } if options[:no_team]
-
-    provision_names.sort.each { |item| say item}
   end
 
-  private
-
-  def computer_provisions
-    Dir["#{PROFILE_PATHS}/*"].grep (/.*.mobileprovision/)
-  end
-
-  def profile_name(provisioning_profile_path)
-    profile_contents = File.open(provisioning_profile_path).read
-    profile_contents = profile_contents.slice(profile_contents.index('<?'), profile_contents.length)
-    doc = Nokogiri.XML(profile_contents)
-    doc.xpath('//key[text()="Name"]')[0].next_element.text
-  end
 end
-
-PROFILE_PATHS = "/Users/omarsubhiabdelhafith/Library/MobileDevice/Provisioning Profiles"

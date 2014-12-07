@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "minitest"
   spec.add_development_dependency "minitest-reporters"
 
+  # spec.add_dependency "cfpropertylist"
   spec.add_dependency "thor"
   spec.add_dependency "plist"
   spec.add_dependency "CFPropertyList", '~> 2.2'
