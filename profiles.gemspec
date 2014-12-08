@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["omar.abdelhafith@mttnow.com"]
   spec.summary       = %q{Search local provision profiles and ipa for a UDID}
   spec.description   = %q{prov is a command line tool that helps you inspect your local list of provision profiles for a give UDID, and it also can search an ipa’s embedded provision profile for it.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/oarrabi/profiles"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

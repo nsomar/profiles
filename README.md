@@ -1,6 +1,6 @@
 # Profiles
 
-TODO: Write a gem description
+Profiles is a command line tool that helps you inspect your local list of provision profiles for a give UDID, and it also can search an ipa’s embedded provision profile for it.
 
 ## Installation
 
@@ -20,7 +20,13 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Search the local list of provision profiles managed by Xcode
+
+    prov local -u <UDID>
+
+Checks if an ipa contains a UDID    
+
+    prov ipa -p <IPA_PATH> -u <UDID>
 
 ## Contributing
 
