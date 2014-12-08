@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Profiles::VERSION
   spec.authors       = ["Omar Abdelhafith"]
   spec.email         = ["omar.abdelhafith@mttnow.com"]
-  spec.summary       = %q{short summary}
-  spec.description   = %q{long suppary}
+  spec.summary       = %q{Search local provision profiles and ipa for a UDID}
+  spec.description   = %q{prov is a command line tool that helps you inspect your local list of provision profiles for a give UDID, and it also can search an ipa’s embedded provision profile for it.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -23,7 +23,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "minitest"
   spec.add_development_dependency "minitest-reporters"
 
-  # spec.add_dependency "cfpropertylist"
   spec.add_dependency "thor"
   spec.add_dependency "plist"
   spec.add_dependency "CFPropertyList", '~> 2.2'

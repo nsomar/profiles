@@ -5,10 +5,11 @@ require 'nokogiri'
 require 'profiles'
 
 class Profiles::CLI < Thor
+  package_name :prov
 
   option :t, :aliases => ["--team"],  :type => :boolean, desc: "Include 'iOSTeam Provisioning Profile' profiles"
   option :u, :aliases => ["--udid"], required: true, desc: "The UDID to search"
-  desc "local", "search for a specific device"
+  desc "local", "Search the local provision profiles managed by Xcode for the given UDID"
   
   def local
     say "Parsing local provision profiles\n\n"
@@ -27,7 +28,7 @@ class Profiles::CLI < Thor
   
   option :p, :aliases => ["--path"], required: true, desc: "Path of the IPA"
   option :u, :aliases => ["--udid"], required: true, desc: "The UDID to search"
-  desc "ipa", "search for a specific device"
+  desc "ipa", "Checks if the passed ipa contains the UDID"
 
   def ipa
     udid = options[:u]
